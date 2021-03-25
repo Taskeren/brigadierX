@@ -1,6 +1,7 @@
 plugins {
     java
     idea
+    `junit-test-suite`
     kotlin("jvm") version "1.4.31"
 }
 
@@ -19,4 +20,12 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("com.github.Mojang:brigadier:1.0.17")
+
+    // JUnit5
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
