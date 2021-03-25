@@ -1,7 +1,7 @@
 plugins {
     java
     idea
-    `junit-test-suite`
+    maven
     kotlin("jvm") version "1.4.31"
 }
 
