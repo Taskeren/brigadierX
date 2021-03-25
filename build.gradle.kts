@@ -1,4 +1,6 @@
 plugins {
+    java
+    idea
     kotlin("jvm") version "1.4.31"
 }
 
