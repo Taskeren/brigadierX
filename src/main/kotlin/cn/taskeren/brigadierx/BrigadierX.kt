@@ -13,12 +13,12 @@ import com.mojang.brigadier.context.CommandContext
 /**
  * LiteralArgumentBuilder 构造方法语法糖
  */
-internal fun <S> LiteralArgumentBuilder(name: String) = LiteralArgumentBuilder.literal<S>(name)
+fun <S> newLiteralArgBuilder(name: String): LiteralArgumentBuilder<S> = LiteralArgumentBuilder.literal<S>(name)
 
 /**
  * LiteralArgumentBuilder 构造方法语法糖
  */
-internal fun <S> LiteralArgumentBuilder(name: String, func: LiteralArgumentBuilder<S>.() -> Unit) = LiteralArgumentBuilder.literal<S>(name).apply { func.invoke(this) }
+fun <S> newLiteralArgBuilder(name: String, func: LiteralArgumentBuilder<S>.() -> Unit): LiteralArgumentBuilder<S> = LiteralArgumentBuilder.literal<S>(name).apply { func.invoke(this) }
 
 /**
  * 注册指令
@@ -27,8 +27,8 @@ internal fun <S> LiteralArgumentBuilder(name: String, func: LiteralArgumentBuild
  * @param func 传入根命令，进行命令注册
  * @return Dispatcher
  */
-internal fun <S> CommandDispatcher<S>.register(name: String, func: LiteralArgumentBuilder<S>.() -> Unit): CommandDispatcher<S> {
-    val rootCommand = LiteralArgumentBuilder<S>(name)
+fun <S> CommandDispatcher<S>.register(name: String, func: LiteralArgumentBuilder<S>.() -> Unit): CommandDispatcher<S> {
+    val rootCommand = newLiteralArgBuilder<S>(name)
     func.invoke(rootCommand)
     this.register(rootCommand)
     return this
@@ -40,26 +40,26 @@ internal fun <S> CommandDispatcher<S>.register(name: String, func: LiteralArgume
  *
  * ================================== */
 
-internal fun <S> LiteralArgumentBuilder<S>.literal(name: String): LiteralArgumentBuilder<S> {
-    val subcommand = LiteralArgumentBuilder<S>(name)
+fun <S> LiteralArgumentBuilder<S>.literal(name: String): LiteralArgumentBuilder<S> {
+    val subcommand = newLiteralArgBuilder<S>(name)
     this.then(subcommand)
     return subcommand
 }
 
-internal fun <S> LiteralArgumentBuilder<S>.literal(name: String, func: LiteralArgumentBuilder<S>.() -> Unit): LiteralArgumentBuilder<S> {
+fun <S> LiteralArgumentBuilder<S>.literal(name: String, func: LiteralArgumentBuilder<S>.() -> Unit): LiteralArgumentBuilder<S> {
     val subcommand = LiteralArgumentBuilder.literal<S>(name)
     func.invoke(subcommand)
     this.then(subcommand)
     return subcommand
 }
 
-internal fun <S, T> RequiredArgumentBuilder<S, T>.literal(name: String): LiteralArgumentBuilder<S> {
+fun <S, T> RequiredArgumentBuilder<S, T>.literal(name: String): LiteralArgumentBuilder<S> {
     val subcommand = LiteralArgumentBuilder.literal<S>(name)
     this.then(subcommand)
     return subcommand
 }
 
-internal fun <S, T> RequiredArgumentBuilder<S, T>.literal(name: String, func: LiteralArgumentBuilder<S>.() -> Unit): LiteralArgumentBuilder<S> {
+fun <S, T> RequiredArgumentBuilder<S, T>.literal(name: String, func: LiteralArgumentBuilder<S>.() -> Unit): LiteralArgumentBuilder<S> {
     val subcommand = LiteralArgumentBuilder.literal<S>(name)
     func.invoke(subcommand)
     this.then(subcommand)
@@ -72,26 +72,26 @@ internal fun <S, T> RequiredArgumentBuilder<S, T>.literal(name: String, func: Li
  *
  * ================================== */
 
-internal fun <S, T> LiteralArgumentBuilder<S>.argument(name: String, type: ArgumentType<T>): RequiredArgumentBuilder<S, T> {
+fun <S, T> LiteralArgumentBuilder<S>.argument(name: String, type: ArgumentType<T>): RequiredArgumentBuilder<S, T> {
     val rab = RequiredArgumentBuilder.argument<S, T>(name, type)
     this.then(rab)
     return rab
 }
 
-internal fun <S, T> LiteralArgumentBuilder<S>.argument(name: String, type: ArgumentType<T>, func: RequiredArgumentBuilder<S, T>.() -> Unit): RequiredArgumentBuilder<S, T> {
+fun <S, T> LiteralArgumentBuilder<S>.argument(name: String, type: ArgumentType<T>, func: RequiredArgumentBuilder<S, T>.() -> Unit): RequiredArgumentBuilder<S, T> {
     val rab = RequiredArgumentBuilder.argument<S, T>(name, type)
     func.invoke(rab)
     this.then(rab)
     return rab
 }
 
-internal fun <S, T1, T2> RequiredArgumentBuilder<S, T1>.argument(name: String, type: ArgumentType<T2>): RequiredArgumentBuilder<S, T2> {
+fun <S, T1, T2> RequiredArgumentBuilder<S, T1>.argument(name: String, type: ArgumentType<T2>): RequiredArgumentBuilder<S, T2> {
     val rab = RequiredArgumentBuilder.argument<S, T2>(name, type)
     this.then(rab)
     return rab
 }
 
-internal fun <S, T1, T2> RequiredArgumentBuilder<S, T1>.argument(name: String, type: ArgumentType<T2>, func: RequiredArgumentBuilder<S, T2>.() -> Unit): RequiredArgumentBuilder<S, T2> {
+fun <S, T1, T2> RequiredArgumentBuilder<S, T1>.argument(name: String, type: ArgumentType<T2>, func: RequiredArgumentBuilder<S, T2>.() -> Unit): RequiredArgumentBuilder<S, T2> {
     val rab = RequiredArgumentBuilder.argument<S, T2>(name, type)
     func.invoke(rab)
     this.then(rab)
@@ -105,7 +105,7 @@ internal fun <S, T1, T2> RequiredArgumentBuilder<S, T1>.argument(name: String, t
  *
  * ================================== */
 
-internal fun <S, T: ArgumentBuilder<S, T>> ArgumentBuilder<S, T>.executex(func: (CommandContext<S>) -> Any) {
+fun <S, T: ArgumentBuilder<S, T>> ArgumentBuilder<S, T>.executex(func: (CommandContext<S>) -> Any) {
     this.executes {
         func.invoke(it)
         Command.SINGLE_SUCCESS

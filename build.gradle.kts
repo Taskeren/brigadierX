@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "cn.taskeren.brigadierx"
-version = "1.0-SNAPSHOT"
+version = "1.1-SNAPSHOT"
 
 repositories {
     maven("http://maven.aliyun.com/nexus/content/groups/public/")

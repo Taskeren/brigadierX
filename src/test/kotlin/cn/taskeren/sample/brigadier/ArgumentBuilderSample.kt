@@ -1,5 +1,9 @@
-package cn.taskeren.brigadierx
+package cn.taskeren.sample.brigadier
 
+import cn.taskeren.brigadierx.argument
+import cn.taskeren.brigadierx.executex
+import cn.taskeren.brigadierx.literal
+import cn.taskeren.brigadierx.register
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.arguments.StringArgumentType
