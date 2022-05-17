@@ -1,6 +1,6 @@
 # BrigadierX
 
-灵感来自于 `javalin`，希望有个好用指令解析，发现 Brigadier 是开源的，但在 kotlin 中使用似乎没有那么方便，所以就做了这个。
+Brigadier 语法糖。
 
 ## 使用帮助
 
@@ -21,12 +21,12 @@ LiteralArgumentBuilder<Any>("foo") {
     }
     
     literal("bar") {
-        executex {
+        executesX {
             println("/foo bar")
         }
         
         argument("str", StringArgumentType.string()) {
-            executex {
+            executesX {
                 println("/foo bar ${StringArgumentType.getString(it, "str")}")
             }
         }
