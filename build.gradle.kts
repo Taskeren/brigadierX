@@ -3,7 +3,7 @@ plugins {
     `maven-publish`
 }
 
-group = "cn.taskeren.brigadierx"
+group = "com.github.taskeren"
 version = "1.2-SNAPSHOT"
 
 repositories {
@@ -23,4 +23,16 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.github.taskeren"
+            artifactId = "brigadierX"
+            version = "1.2.2"
+
+            from(components["java"])
+        }
+    }
 }
