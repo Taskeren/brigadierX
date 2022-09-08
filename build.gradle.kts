@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.7.10"
+    `maven-publish`
 }
 
 group = "cn.taskeren.brigadierx"
@@ -13,7 +14,7 @@ repositories {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.21")
 
-    api("com.github.Mojang:brigadier:1.0.18")
+    api("com.mojang:brigadier:1.0.18")
 
     // JUnit5
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
