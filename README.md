@@ -12,10 +12,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.nitu2003:brigadierX:Tag'
+    implementation 'com.github.taskeren:brigadierX:Tag'
 }
 ```
 
 ### Others
 
-[jitpack](https://jitpack.io/#nitu2003/brigadierX)
+[jitpack](https://jitpack.io/#taskeren/brigadierX)

@@ -101,11 +101,11 @@ fun <S, T1, T2> RequiredArgumentBuilder<S, T1>.argument(name: String, type: Argu
 /* ==================================
  *
  *        Modified: executes
- *             executex
+ *             executesX
  *
  * ================================== */
 
-fun <S, T: ArgumentBuilder<S, T>> ArgumentBuilder<S, T>.executesX(func: (CommandContext<S>) -> Any) {
+fun <S, T: ArgumentBuilder<S, T>, R> ArgumentBuilder<S, T>.executesX(func: (CommandContext<S>) -> R) {
     this.executes {
         func.invoke(it)
         Command.SINGLE_SUCCESS

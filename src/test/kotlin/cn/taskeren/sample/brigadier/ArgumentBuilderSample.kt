@@ -1,9 +1,6 @@
 package cn.taskeren.sample.brigadier
 
-import cn.taskeren.brigadierx.argument
-import cn.taskeren.brigadierx.executex
-import cn.taskeren.brigadierx.literal
-import cn.taskeren.brigadierx.register
+import cn.taskeren.brigadierx.*
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.arguments.StringArgumentType
@@ -24,13 +21,13 @@ object ArgumentBuilderSample {
             }
 
             literal("banana") {
-                executex {
+                executesX {
                     println("apple banana")
                 }
             }
 
             literal("orange") {
-                executex {
+                executesX {
                     println("apple orange")
                 }
 
@@ -43,12 +40,12 @@ object ArgumentBuilderSample {
             }
 
             argument("string", StringArgumentType.string()) {
-                executex {
+                executesX {
                     println("!!apple ${it.getArgument("string", String::class.java)}")
                 }
 
                 argument("int", IntegerArgumentType.integer(0, 10)) {
-                    executex {
+                    executesX {
                         println(
                             "@@apple ${StringArgumentType.getString(it, "string")} ${IntegerArgumentType.getInteger(it, "int")}"
                         )
@@ -56,8 +53,9 @@ object ArgumentBuilderSample {
                 }
 
                 literal("decade") {
-                    executex {
+                    executesX {
                         println("**apple ${StringArgumentType.getString(it, "string")} decade!")
+                        @Suppress("UNUSED_VARIABLE") val a = null
                     }
                 }
             }
