@@ -36,7 +36,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.github.taskeren"
             artifactId = "brigadierX"
-            version = "1.3.0"
+            version = "1.3.1"
 
             from(components["java"])
         }
