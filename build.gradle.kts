@@ -1,10 +1,12 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.9.0"
     `maven-publish`
 }
 
 group = "com.github.taskeren"
-version = "1.2-SNAPSHOT"
+version = "1.3-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -12,8 +14,6 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.21")
-
     api("com.mojang:brigadier:1.0.18")
 
     // JUnit5
@@ -25,12 +25,18 @@ tasks.test {
     useJUnitPlatform()
 }
 
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs += "-Xcontext-receivers"
+    }
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.github.taskeren"
             artifactId = "brigadierX"
-            version = "1.2.2"
+            version = "1.3.0"
 
             from(components["java"])
         }

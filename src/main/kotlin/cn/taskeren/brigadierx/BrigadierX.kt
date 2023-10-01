@@ -13,11 +13,13 @@ import com.mojang.brigadier.context.CommandContext
 /**
  * LiteralArgumentBuilder 构造方法语法糖
  */
+@Deprecated("Removal", ReplaceWith("LiteralArgumentBuilder.literal<S>(name)"), DeprecationLevel.WARNING)
 fun <S> newLiteralArgBuilder(name: String): LiteralArgumentBuilder<S> = LiteralArgumentBuilder.literal<S>(name)
 
 /**
  * LiteralArgumentBuilder 构造方法语法糖
  */
+@Deprecated("Removal", ReplaceWith("LiteralArgumentBuilder.literal<S>(name).apply { func.invoke(this) }"), DeprecationLevel.WARNING)
 fun <S> newLiteralArgBuilder(name: String, func: LiteralArgumentBuilder<S>.() -> Unit): LiteralArgumentBuilder<S> = LiteralArgumentBuilder.literal<S>(name).apply { func.invoke(this) }
 
 /**
@@ -28,20 +30,14 @@ fun <S> newLiteralArgBuilder(name: String, func: LiteralArgumentBuilder<S>.() ->
  * @return Dispatcher
  */
 fun <S> CommandDispatcher<S>.register(name: String, func: LiteralArgumentBuilder<S>.() -> Unit): CommandDispatcher<S> {
-    val rootCommand = newLiteralArgBuilder<S>(name)
+    val rootCommand = LiteralArgumentBuilder.literal<S>(name)
     func.invoke(rootCommand)
     this.register(rootCommand)
     return this
 }
 
-/* ==================================
- *
- *              literal
- *
- * ================================== */
-
 fun <S> LiteralArgumentBuilder<S>.literal(name: String): LiteralArgumentBuilder<S> {
-    val subcommand = newLiteralArgBuilder<S>(name)
+    val subcommand = LiteralArgumentBuilder.literal<S>(name)
     this.then(subcommand)
     return subcommand
 }
@@ -65,12 +61,6 @@ fun <S, T> RequiredArgumentBuilder<S, T>.literal(name: String, func: LiteralArgu
     this.then(subcommand)
     return subcommand
 }
-
-/* ==================================
- *
- *             argument
- *
- * ================================== */
 
 fun <S, T> LiteralArgumentBuilder<S>.argument(name: String, type: ArgumentType<T>): RequiredArgumentBuilder<S, T> {
     val rab = RequiredArgumentBuilder.argument<S, T>(name, type)
@@ -97,13 +87,6 @@ fun <S, T1, T2> RequiredArgumentBuilder<S, T1>.argument(name: String, type: Argu
     this.then(rab)
     return rab
 }
-
-/* ==================================
- *
- *        Modified: executes
- *             executesX
- *
- * ================================== */
 
 fun <S, T: ArgumentBuilder<S, T>, R> ArgumentBuilder<S, T>.executesX(func: (CommandContext<S>) -> R) {
     this.executes {

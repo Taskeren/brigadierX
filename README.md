@@ -1,6 +1,6 @@
 # BrigadierX
 
-[使用帮助/How to Use](https://nitu2003.github.io/brigadierX/index.html)
+[使用帮助 / How to Use](https://taskeren.github.io/brigadierX/index.html)
 
 ## 导入项目 / Import Repository
 
