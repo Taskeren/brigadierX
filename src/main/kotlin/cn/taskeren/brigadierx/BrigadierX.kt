@@ -13,7 +13,6 @@ import com.mojang.brigadier.context.CommandContext
 @Deprecated("Removal", ReplaceWith("LiteralArgumentBuilder.literal<S>(name)"), DeprecationLevel.WARNING)
 fun <S> newLiteralArgBuilder(name: String): LiteralArgumentBuilder<S> = LiteralArgumentBuilder.literal(name)
 
-@Deprecated("Removal",level = DeprecationLevel.WARNING)
 fun <S> newLiteralArgBuilder(name: String, func: LiteralArgumentBuilder<S>.() -> Unit): LiteralArgumentBuilder<S> =
 	LiteralArgumentBuilder.literal<S>(name).apply { func.invoke(this) }
 
